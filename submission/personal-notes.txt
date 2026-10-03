@@ -1,35 +1,49 @@
 PHIẾU CÁ NHÂN — DAY 14
-Điền file này, chạy QC vào submission/qc-j01 và submission/qc-practice, commit rồi nộp link repo.
-Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
+Điền file này, chạy QC vào submission/qc-j01 nếu được yêu cầu.
+Không dán ảnh, tọa độ điểm hoặc nội dung file export vào đây.
 
-Họ tên / mã học viên:
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01:
-Phiên bản CVAT / overlay đã bật (có/không):
+Họ tên / mã học viên: Phù Ngô Việt Anh / 2A202602141
+Định dạng file export: Datumaro 3D 1.0 (đã bỏ chọn Save images)
+Phiên bản CVAT / overlay đã bật (có/không): CVAT 2.74.1 / Có
 
-J01 — TRACK LÕI
-Frame fit và lý do:
-L / W / H (m):
-Keyframe quan trọng và lý do:
-Đã bấm F qua đủ frame 0–65 (có/không):
-Đoạn thưa / che khuất / dễ nhầm identity:
+PHẠM VI GÁN NHÃN
+
+Phạm vi: Chỉ gán nhãn 1 phương tiện, không gán nhãn toàn bộ phương tiện trong sequence.
+Phương tiện cụ thể: Xe tải đang đi ngược chiều với xe ego, ở phía trước và lệch về bên phải khung hình.
+Label: vehicles
+Task/job CVAT: Day14_J01_PhuNgoVietAnh / Job#21
+Track ID trên CVAT: 1
+track_id trong file QC export: 0
+Khoảng frame đã gán nhãn: 0–39
+
+J01 — TRACK ĐÃ GÁN NHÃN
+
+Frame fit và lý do: Frame 0; đây là frame bắt đầu của track và là frame đã fit cuboid.
+L / W / H (m): 5.54 / 2.11 / 3.05
+Keyframe quan trọng và lý do: Frame 0 — keyframe khởi tạo track.
+Đã bấm F qua đủ frame 0–39 (có/không): Có
+Đoạn thưa / che khuất / dễ nhầm identity: Xe tải đi ngược chiều; cần đối chiếu lại các frame có điểm thưa hoặc bị che nếu phát hiện lệch.
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame):
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do:
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào:
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao:
+
+Lệnh đã chạy: python src/cvat3d_fusion.py qc --annotations outputs/j01 --out submission/qc-j01
+Tóm tắt track QC: 40 frame, 40 keyframe, frame 0–39, không có gap; L drift 0.0%, W drift 2.31%, H drift 4.92%; yaw step lớn nhất 2.86°, position step lớn nhất 3.94 m.
+Lần QC đầu — cờ của track: position_jump tại frame 1–39 (39 cờ, tâm box nhảy khoảng 3.1–3.9 m); no_interpolation tại frame 0 (40/40 frame là keyframe).
+Quyết định cho từng cờ và lý do: position_jump là cảnh báo heuristic cần kiểm lại theo chuyển động thực của xe tải; chưa đủ evidence để kết luận ID switch nên giữ annotation và không sửa ngưỡng QC. no_interpolation là đặc điểm do đã đặt keyframe ở từng frame, không tự động là lỗi.
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Chưa sửa sau lần QC này; các cờ nêu trên vẫn còn trong bản QC hiện tại.
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Chưa có nhận xét bạn cùng cặp.
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát):
-Ca khó (frame / quan sát 2D / quan sát 3D):
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence):
-Hành động (sửa / giữ / báo Lab Coach) và lý do:
 
-CASE NGẮN (task practice)
-Case → track ID (ví dụ B01 → 3):
-Case đã xong:
-Case đang dở / chỗ kẹt:
-fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không):
+Ca bình thường (frame / quan sát): Chưa ghi nhận riêng.
+Ca khó (frame / quan sát 2D / quan sát 3D): Xe tải đi ngược chiều; kiểm tra theo vị trí xe trên ảnh camera và cụm điểm 3D.
+Giả thuyết nguyên nhân: Chưa đủ evidence để kết luận.
+Hành động: Giữ annotation hiện tại; không sửa calibration.
 
 THỜI GIAN
-J01 / case ngắn / QC và fusion:
+
+J01 / QC và fusion: Đã gán nhãn 1 xe tải trong khoảng frame 0–39; chưa chạy QC.
+
+GHI CHÚ NỘP BÀI
+
+Nộp kèm 2 file: file export Datumaro 3D 1.0 và personal-notes.txt.
